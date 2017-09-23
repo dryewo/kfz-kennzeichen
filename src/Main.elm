@@ -1,5 +1,7 @@
 module Main exposing (..)
 
+import Bootstrap.CDN as CDN
+import Bootstrap.Grid as Grid
 import Dict exposing (..)
 import Html exposing (Attribute, Html, div, input, text)
 import Html.Attributes exposing (..)
@@ -25,7 +27,7 @@ type alias Model =
     { code : String
     , result : String
     , codes : Dict String String
-    , error : Maybe Http.Error
+    , codesLoadError : Maybe Http.Error
     }
 
 
@@ -66,7 +68,7 @@ updateImpl msg model =
             { model | codes = codes }
 
         LoadedCodes (Err err) ->
-            { model | codes = Dict.empty, error = Just (Debug.log "err" err) }
+            { model | codes = Dict.empty, codesLoadError = Just (Debug.log "err" err) }
 
         Change newCode ->
             { model | code = newCode, result = lookupCode model.codes newCode }
@@ -86,9 +88,13 @@ subscriptions =
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ input [ placeholder "Region code", onInput Change, value model.code ] []
-        , div [] [ text model.result ]
+    Grid.container []
+        [ Grid.row []
+            [ Grid.col []
+                [ input [ placeholder "Region code", onInput Change, value model.code ] []
+                , div [] [ text model.result ]
+                ]
+            ]
         ]
 
 
@@ -107,4 +113,4 @@ type alias Flags =
 
 init : Flags -> ( Model, Cmd Msg )
 init flags =
-    { code = "", result = "", codes = Dict.fromList [], error = Nothing } ! [ loadCodes flags.dataPath ]
+    { code = "", result = "", codes = Dict.fromList [], codesLoadError = Nothing } ! [ loadCodes flags.dataPath ]
