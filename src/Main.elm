@@ -9,11 +9,11 @@ import Json.Decode as JD
 
 
 main =
-    Html.program
+    Html.programWithFlags
         { init = init
-        , update = \msg model -> update msg model ! []
+        , update = update
         , view = view
-        , subscriptions = \_ -> Sub.none
+        , subscriptions = subscriptions
         }
 
 
@@ -55,8 +55,12 @@ lookupCode codes code =
                 "Not found"
 
 
-update : Msg -> Model -> Model
-update msg model =
+update =
+    \msg model -> updateImpl msg model ! []
+
+
+updateImpl : Msg -> Model -> Model
+updateImpl msg model =
     case msg of
         LoadedCodes (Ok codes) ->
             { model | codes = codes }
@@ -66,6 +70,14 @@ update msg model =
 
         Change newCode ->
             { model | code = newCode, result = lookupCode model.codes newCode }
+
+
+
+-- SUBSCRIPTIONS
+
+
+subscriptions =
+    always Sub.none
 
 
 
@@ -89,6 +101,10 @@ loadCodes url =
     Http.send LoadedCodes (Http.get url (JD.dict JD.string))
 
 
-init : ( Model, Cmd Msg )
-init =
-    { code = "", result = "", codes = Dict.fromList [], error = Nothing } ! [ loadCodes "/data/codes.json" ]
+type alias Flags =
+    { dataPath : String }
+
+
+init : Flags -> ( Model, Cmd Msg )
+init flags =
+    { code = "", result = "", codes = Dict.fromList [], error = Nothing } ! [ loadCodes flags.dataPath ]

@@ -9033,6 +9033,7 @@ var _elm_lang$http$Http$StringPart = F2(
 	});
 var _elm_lang$http$Http$stringPart = _elm_lang$http$Http$StringPart;
 
+var _user$project$Main$subscriptions = _elm_lang$core$Basics$always(_elm_lang$core$Platform_Sub$none);
 var _user$project$Main$lookupCode = F2(
 	function (codes, code) {
 		if (_elm_lang$core$String$isEmpty(code)) {
@@ -9049,7 +9050,7 @@ var _user$project$Main$lookupCode = F2(
 			}
 		}
 	});
-var _user$project$Main$update = F2(
+var _user$project$Main$updateImpl = F2(
 	function (msg, model) {
 		var _p1 = msg;
 		if (_p1.ctor === 'LoadedCodes') {
@@ -9076,10 +9077,20 @@ var _user$project$Main$update = F2(
 				});
 		}
 	});
+var _user$project$Main$update = F2(
+	function (msg, model) {
+		return A2(
+			_elm_lang$core$Platform_Cmd_ops['!'],
+			A2(_user$project$Main$updateImpl, msg, model),
+			{ctor: '[]'});
+	});
 var _user$project$Main$Model = F4(
 	function (a, b, c, d) {
 		return {code: a, result: b, codes: c, error: d};
 	});
+var _user$project$Main$Flags = function (a) {
+	return {dataPath: a};
+};
 var _user$project$Main$LoadedCodes = function (a) {
 	return {ctor: 'LoadedCodes', _0: a};
 };
@@ -9092,20 +9103,22 @@ var _user$project$Main$loadCodes = function (url) {
 			url,
 			_elm_lang$core$Json_Decode$dict(_elm_lang$core$Json_Decode$string)));
 };
-var _user$project$Main$init = A2(
-	_elm_lang$core$Platform_Cmd_ops['!'],
-	{
-		code: '',
-		result: '',
-		codes: _elm_lang$core$Dict$fromList(
-			{ctor: '[]'}),
-		error: _elm_lang$core$Maybe$Nothing
-	},
-	{
-		ctor: '::',
-		_0: _user$project$Main$loadCodes('/data/codes.json'),
-		_1: {ctor: '[]'}
-	});
+var _user$project$Main$init = function (flags) {
+	return A2(
+		_elm_lang$core$Platform_Cmd_ops['!'],
+		{
+			code: '',
+			result: '',
+			codes: _elm_lang$core$Dict$fromList(
+				{ctor: '[]'}),
+			error: _elm_lang$core$Maybe$Nothing
+		},
+		{
+			ctor: '::',
+			_0: _user$project$Main$loadCodes(flags.dataPath),
+			_1: {ctor: '[]'}
+		});
+};
 var _user$project$Main$Change = function (a) {
 	return {ctor: 'Change', _0: a};
 };
@@ -9145,21 +9158,15 @@ var _user$project$Main$view = function (model) {
 			}
 		});
 };
-var _user$project$Main$main = _elm_lang$html$Html$program(
-	{
-		init: _user$project$Main$init,
-		update: F2(
-			function (msg, model) {
-				return A2(
-					_elm_lang$core$Platform_Cmd_ops['!'],
-					A2(_user$project$Main$update, msg, model),
-					{ctor: '[]'});
-			}),
-		view: _user$project$Main$view,
-		subscriptions: function (_p3) {
-			return _elm_lang$core$Platform_Sub$none;
-		}
-	})();
+var _user$project$Main$main = _elm_lang$html$Html$programWithFlags(
+	{init: _user$project$Main$init, update: _user$project$Main$update, view: _user$project$Main$view, subscriptions: _user$project$Main$subscriptions})(
+	A2(
+		_elm_lang$core$Json_Decode$andThen,
+		function (dataPath) {
+			return _elm_lang$core$Json_Decode$succeed(
+				{dataPath: dataPath});
+		},
+		A2(_elm_lang$core$Json_Decode$field, 'dataPath', _elm_lang$core$Json_Decode$string)));
 
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};

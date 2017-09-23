@@ -13,7 +13,7 @@
 <script src="output/main.js"></script>
 <script>
     var node = document.getElementById('main');
-    var app = Elm.Main.embed(node);
+    var app = Elm.Main.embed(node, {dataPath: "data/codes.json"});
     // Note: if your Elm module is named "MyThing.Root" you
     // would call "Elm.MyThing.Root.embed(node)" instead.
 </script>
