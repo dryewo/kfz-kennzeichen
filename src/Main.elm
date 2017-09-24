@@ -1,9 +1,11 @@
 module Main exposing (..)
 
 import Bootstrap.CDN as CDN
+import Bootstrap.Form.Input as Input
 import Bootstrap.Grid as Grid
+import Bootstrap.Grid.Col as Col
 import Dict exposing (..)
-import Html exposing (Attribute, Html, div, input, text)
+import Html exposing (Attribute, Html, div, input, text, h1)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
 import Http
@@ -90,8 +92,15 @@ view : Model -> Html Msg
 view model =
     Grid.container []
         [ Grid.row []
-            [ Grid.col []
-                [ input [ placeholder "Region code", onInput Change, value model.code ] []
+            [ Grid.col [ Col.xs12 ]
+                [ h1 [] [ text "KFZ-Kennzeichen" ]
+                , Input.text
+                    [ Input.large
+                    , Input.placeholder "Region Code"
+                    , Input.onInput Change
+                    , Input.value (String.toUpper model.code)
+                    , Input.attrs [autofocus True]
+                    ]
                 , div [] [ text model.result ]
                 ]
             ]
