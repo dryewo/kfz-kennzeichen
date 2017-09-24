@@ -5,7 +5,7 @@ import Bootstrap.Form.Input as Input
 import Bootstrap.Grid as Grid
 import Bootstrap.Grid.Col as Col
 import Dict exposing (..)
-import Html exposing (Attribute, Html, div, input, text, h1)
+import Html exposing (Attribute, Html, div, input, text, h2)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
 import Http
@@ -93,13 +93,13 @@ view model =
     Grid.container []
         [ Grid.row []
             [ Grid.col [ Col.xs12 ]
-                [ h1 [] [ text "KFZ-Kennzeichen" ]
+                [ h2 [] [ text "KFZ-Kennzeichen" ]
                 , Input.text
                     [ Input.large
                     , Input.placeholder "Code"
                     , Input.onInput Change
                     , Input.value (String.toUpper model.code)
-                    , Input.attrs [autofocus True, style [("font-size", "64px")]]
+                    , Input.attrs [autofocus True, style [("font-size", "48px")]]
                     ]
                 , div [style [("font-size", "32px")]] [ text model.result ]
                 ]

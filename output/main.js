@@ -11003,7 +11003,7 @@ var _user$project$Main$view = function (model) {
 						{
 							ctor: '::',
 							_0: A2(
-								_elm_lang$html$Html$h1,
+								_elm_lang$html$Html$h2,
 								{ctor: '[]'},
 								{
 									ctor: '::',
@@ -11037,7 +11037,7 @@ var _user$project$Main$view = function (model) {
 																	_0: _elm_lang$html$Html_Attributes$style(
 																		{
 																			ctor: '::',
-																			_0: {ctor: '_Tuple2', _0: 'font-size', _1: '64px'},
+																			_0: {ctor: '_Tuple2', _0: 'font-size', _1: '48px'},
 																			_1: {ctor: '[]'}
 																		}),
 																	_1: {ctor: '[]'}
