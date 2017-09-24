@@ -11018,7 +11018,7 @@ var _user$project$Main$view = function (model) {
 										_0: _rundis$elm_bootstrap$Bootstrap_Form_Input$large,
 										_1: {
 											ctor: '::',
-											_0: _rundis$elm_bootstrap$Bootstrap_Form_Input$placeholder('Region Code'),
+											_0: _rundis$elm_bootstrap$Bootstrap_Form_Input$placeholder('Code'),
 											_1: {
 												ctor: '::',
 												_0: _rundis$elm_bootstrap$Bootstrap_Form_Input$onInput(_user$project$Main$Change),
@@ -11032,7 +11032,16 @@ var _user$project$Main$view = function (model) {
 															{
 																ctor: '::',
 																_0: _elm_lang$html$Html_Attributes$autofocus(true),
-																_1: {ctor: '[]'}
+																_1: {
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Attributes$style(
+																		{
+																			ctor: '::',
+																			_0: {ctor: '_Tuple2', _0: 'font-size', _1: '64px'},
+																			_1: {ctor: '[]'}
+																		}),
+																	_1: {ctor: '[]'}
+																}
 															}),
 														_1: {ctor: '[]'}
 													}
@@ -11044,7 +11053,16 @@ var _user$project$Main$view = function (model) {
 									ctor: '::',
 									_0: A2(
 										_elm_lang$html$Html$div,
-										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$style(
+												{
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'font-size', _1: '32px'},
+													_1: {ctor: '[]'}
+												}),
+											_1: {ctor: '[]'}
+										},
 										{
 											ctor: '::',
 											_0: _elm_lang$html$Html$text(model.result),

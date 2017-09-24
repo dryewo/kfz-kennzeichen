@@ -96,12 +96,12 @@ view model =
                 [ h1 [] [ text "KFZ-Kennzeichen" ]
                 , Input.text
                     [ Input.large
-                    , Input.placeholder "Region Code"
+                    , Input.placeholder "Code"
                     , Input.onInput Change
                     , Input.value (String.toUpper model.code)
-                    , Input.attrs [autofocus True]
+                    , Input.attrs [autofocus True, style [("font-size", "64px")]]
                     ]
-                , div [] [ text model.result ]
+                , div [style [("font-size", "32px")]] [ text model.result ]
                 ]
             ]
         ]
